@@ -1,10 +1,9 @@
 import os
 from backend.audio_indexer import AudioIndexer
 
-# Ruta donde tienes los audios (.mp3 o .wav)
-AUDIO_DIR = "test/audio"
-QUERY_AUDIO = "test/query_audio.wav"  # archivo para buscar similares
-INDEX_PATH = "multimedia/audio_index.pkl"
+AUDIO_DIR = "test/audio" # ruta de los audios de prueba
+QUERY_AUDIO = "test/query_audio.mp3"  # archivo para buscar similares
+INDEX_PATH = "multimedia/audio_index_prueba.pkl"
 N_CLUSTERS = 128
 
 # 1. Construcción del diccionario acústico

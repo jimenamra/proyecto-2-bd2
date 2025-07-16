@@ -20,7 +20,11 @@ class AudioIndexer:
         self.tfidf_matrix = None
 
     def extract_mfccs(self, path):
-        y, sr = librosa.load(path, sr=None)
+        try:
+            y, sr = librosa.load(path, sr=None)
+        except Exception as e:
+            raise RuntimeError(f"Error al cargar el audio con librosa: {e}")
+
         mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13, hop_length=512)
         return mfcc.T  # (frames, 13)
 
@@ -53,9 +57,11 @@ class AudioIndexer:
             counts = Counter(labels)
             for word_id, freq in counts.items():
                 self.index_invertido[word_id].append((doc_id, freq))
-
+        
+        print(f"✅ Histogramas BoW generados: {len(self.histograms)} documentos.")
         docs = np.array(docs)
         self.tfidf_matrix = self.tfidf_transformer.fit_transform(docs)
+        print(f"✅ TF-IDF entrenado sobre {self.tfidf_matrix.shape[0]} documentos.")
 
     def save(self, path="multimedia/audio_index.pkl"):
         with open(path, "wb") as f:

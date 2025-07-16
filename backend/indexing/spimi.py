@@ -1,5 +1,3 @@
-# backend/indexing/spimi.py
-
 import os
 import math
 import json

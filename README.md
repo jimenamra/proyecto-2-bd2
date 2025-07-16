@@ -40,5 +40,10 @@ python -m test.build_index
 2. Para base de datos multimedia
 
 ```shell
-python -m test.test_audio_index.py
+python -m test.test_audio_index 
+```
+3. Para construir índice multimedia
+
+```shell
+python -m test.build_audio_index
 ```

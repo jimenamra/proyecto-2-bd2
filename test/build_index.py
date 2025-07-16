@@ -13,6 +13,6 @@ def load_documents_from_csv(csv_path):
 if __name__ == "__main__":
     csv_path = "test/spotify_songs.csv"
     docs = load_documents_from_csv(csv_path)
-    indexer = SPIMIIndexer(output_path="data/index.json")
+    indexer = SPIMIIndexer(output_path="data/Audio/index.json")
     indexer.index_documents(docs)
     print("✔ Índice invertido construido y guardado en data/index.json")
