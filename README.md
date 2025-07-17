@@ -51,4 +51,4 @@ python -m test.build_audio_index
 
 ## Diagrama de flujo de aplicación
 
-![alt text](diagrama.png)
+![alt text](diagrama_app.png)
