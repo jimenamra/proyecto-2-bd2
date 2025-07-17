@@ -47,3 +47,8 @@ python -m test.test_audio_index
 ```shell
 python -m test.build_audio_index
 ```
+
+
+## Diagrama de flujo de aplicación
+
+![alt text](diagrama.png)
