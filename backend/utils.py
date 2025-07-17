@@ -14,7 +14,7 @@ def get_audio_files():
 def ensure_identifier_column(df: pd.DataFrame, preferred: str = None) -> tuple[pd.DataFrame, str]:
     if preferred and preferred in df.columns:
         return df, preferred
-    for col in ["track_id", "id"]:
+    for col in ["track_id", "id", "uuid"]:
         if col in df.columns:
             return df, col
     df = df.reset_index(drop=True)

@@ -68,8 +68,9 @@ class AudioIndexer:
             pickle.dump({
                 "kmeans": self.kmeans,
                 "doc_ids": self.doc_ids,
-                "tfidf": self.tfidf_matrix,
-                "index_invertido": self.index_invertido
+                "tfidf_matrix": self.tfidf_matrix,
+                "index_invertido": self.index_invertido,
+                "tfidf_transformer": self.tfidf_transformer 
             }, f)
         print(f"✅ Índice guardado en {path}")
 
@@ -78,10 +79,15 @@ class AudioIndexer:
             data = pickle.load(f)
             self.kmeans = data["kmeans"]
             self.doc_ids = data["doc_ids"]
-            self.tfidf_matrix = data["tfidf"]
+            self.tfidf_matrix = data["tfidf_matrix"]
             self.index_invertido = data["index_invertido"]
-
+            self.tfidf_transformer = data["tfidf_transformer"] 
+            self.n_clusters = self.kmeans.n_clusters
+        
     def knn_secuencial(self, query_path, k=5):
+        if not hasattr(self.tfidf_transformer, 'idf_'):
+            raise RuntimeError("TfidfTransformer no está entrenado.")
+
         mfccs = self.extract_mfccs(query_path)
         labels = self.kmeans.predict(mfccs)
         hist = np.bincount(labels, minlength=self.n_clusters).reshape(1, -1)
@@ -91,6 +97,7 @@ class AudioIndexer:
         return [(self.doc_ids[i], sims[i]) for i in top_k]
 
     def knn_invertido(self, query_path, k=5):
+
         mfccs = self.extract_mfccs(query_path)
         labels = self.kmeans.predict(mfccs)
         query_hist = Counter(labels)
