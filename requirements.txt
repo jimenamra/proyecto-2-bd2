@@ -12,3 +12,4 @@ torch
 mo-sql-parsing
 python-multipart
 pydub
+seaborn
